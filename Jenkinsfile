@@ -11,7 +11,7 @@ pipeline {
 		sh 'make arm'
             }
         }
-	stage('Test)' {
+	stage('Test') {
             steps {
 		sh 'make test'
 	    }
