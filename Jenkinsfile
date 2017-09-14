@@ -6,12 +6,12 @@ pipeline {
                 sh 'make clean'
             }
         }
-/*        stage('Build') {
-*            steps {
-*		sh 'make arm'
-*            }
-*        }
-*	stage('Test)' {
+        stage('Build') {
+            steps {
+		sh 'make arm'
+            }
+        }
+/*	stage('Test)' {
 *            steps {
 *		sh 'make test'
 *	    }
