@@ -179,7 +179,7 @@ distclean: clean
 	-$(DEL_FILE) Makefile
 
 #arm: SDK_PATH        = "/opt/buildroot-toolchain"
-arm: SDK_PATH        = "/opt/bin"
+arm: SDK_PATH        = "/opt/bin/"
 arm: SDK_PATH_TARGET = $(SDK_PATH)/usr/arm-buildroot-linux-gnueabi/sysroot
 arm: SDK_PATH_NATIVE = $(SDK_PATH)
 #arm: TOOLCHAIN_PREFIX=arm-buildroot-linux-gnueabi-
@@ -204,7 +204,7 @@ arm: $(DESTDIR) $(OBJECTS_DIR) $(DEPLOYDIR)$(TARGET) $(DESTDIR)$(TARGET)
 	$(STRIP) -s $(DEPLOYDIR)$(TARGET)
 
 #arm-debug: SDK_PATH        = "/opt/buildroot-toolchain"
-arm-debug: SDK_PATH        = "/opt/bin"
+arm-debug: SDK_PATH        = "/opt/bin/"
 arm-debug: SDK_PATH_TARGET = $(SDK_PATH)/usr/arm-buildroot-linux-gnueabi/sysroot
 arm-debug: SDK_PATH_NATIVE = $(SDK_PATH)
 #arm-debug: TOOLCHAIN_PREFIX=arm-buildroot-linux-gnueabi-
@@ -228,7 +228,7 @@ arm-debug: DEPLOYDIR       = package.arm/integra/lib/
 arm-debug: $(DESTDIR) $(OBJECTS_DIR) $(DEPLOYDIR)$(TARGET) $(DESTDIR)$(TARGET)
 
 #armtest: SDK_PATH        = "/opt/buildroot-toolchain"
-armtest: SDK_PATH        = "/opt/bin"
+armtest: SDK_PATH        = "/opt/bin/"
 armtest: SDK_PATH_TARGET = $(SDK_PATH)/usr/arm-buildroot-linux-gnueabi/sysroot
 armtest: SDK_PATH_NATIVE = $(SDK_PATH)
 #armtest: TOOLCHAIN_PREFIX=arm-buildroot-linux-gnueabi-
