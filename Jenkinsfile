@@ -3,9 +3,16 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'uname -a'
-		sh 'pwd'
+		echo "Building...."
+                sh 'make clean'
+		sh 'make arm'
             }
         }
+	stage('test)' {
+            steps {
+		echo "Testing...."
+		sh 'make test'
+	    }
+	}
     }
 }
