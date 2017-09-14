@@ -11,11 +11,10 @@ pipeline {
 		sh 'make arm'
             }
         }
-/*	stage('Test)' {
-*            steps {
-*		sh 'make test'
-*	    }
-*	}
-*/
+	stage('Test)' {
+            steps {
+		sh 'make test'
+	    }
+	}
     }
 }
