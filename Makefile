@@ -178,14 +178,17 @@ distclean: clean
 	-$(DEL_FILE) $(DESTDIR)$(TARGET0) $(DESTDIR)$(TARGET1) $(DESTDIR)$(TARGET2) $(TARGETA)
 	-$(DEL_FILE) Makefile
 
-arm: SDK_PATH        = "/opt/buildroot-toolchain"
+#arm: SDK_PATH        = "/opt/buildroot-toolchain"
+arm: SDK_PATH        = "/opt/bin"
 arm: SDK_PATH_TARGET = $(SDK_PATH)/usr/arm-buildroot-linux-gnueabi/sysroot
-arm: SDK_PATH_NATIVE = $(SDK_PATH)/usr/bin/
-arm: TOOLCHAIN_PREFIX=arm-buildroot-linux-gnueabi-
-arm: CFLAGS          = -pipe -g -Wall -W -O3 -fPIC  -march=armv7-a -marm -mthumb-interwork -mfloat-abi=soft -mfpu=neon -mtune=cortex-a9 --sysroot=$(SDK_PATH_TARGET) $(DEFINES)
+arm: SDK_PATH_NATIVE = $(SDK_PATH)
+#arm: TOOLCHAIN_PREFIX=arm-buildroot-linux-gnueabi-
+arm: TOOLCHAIN_PREFIX=
+arm: CFLAGS          = -pipe -g -Wall -W -O3 -fPIC  -march=armv7-a -marm -mthumb-interwork -mfloat-abi=soft -mfpu=neon -mtune=cortex-a9 #--sysroot=$(SDK_PATH_TARGET) $(DEFINES)
 arm: CXXFLAGS        = -pipe -g -std=c++0x -Wall -W -O3 -fPIC -fvisibility=hidden -march=armv7-a -marm -mthumb-interwork -mfloat-abi=soft -mfpu=neon -mtune=cortex-a9 --sysroot=$(SDK_PATH_TARGET) $(DEFINES)
 arm: LFLAGS          = -shared -Wl,-soname,libutils.so.
-arm: INCPATH         = -I. -I.. -I$(SDK_PATH_TARGET)/usr/include
+#arm: INCPATH         = -I. -I.. -I$(SDK_PATH_TARGET)/usr/include
+arm: INCPATH         = -I. -I.. -I/opt/include
 arm: LINK            = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)g++
 arm: CC              = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)gcc
 arm: CXX             = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)g++
@@ -194,19 +197,23 @@ arm: AS              = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)as
 arm: AR              = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ar
 arm: RANLIB          = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ranlib
 arm: STRIP           = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)strip
-arm: LIBS            = $(SUBLIBS) -L$(SDK_PATH_TARGET)/lib/ -ljson-c  -lmosquittopp
+#arm: LIBS            = $(SUBLIBS) -L$(SDK_PATH_TARGET)/lib/ -ljson-c  -lmosquittopp
+arm: LIBS            = $(SUBLIBS) -L/lib/ -ljson-c  -lmosquittopp
 arm: DEPLOYDIR       = package.arm/integra/lib/
 arm: $(DESTDIR) $(OBJECTS_DIR) $(DEPLOYDIR)$(TARGET) $(DESTDIR)$(TARGET)
 	$(STRIP) -s $(DEPLOYDIR)$(TARGET)
 
-arm-debug: SDK_PATH        = "/opt/buildroot-toolchain"
+#arm-debug: SDK_PATH        = "/opt/buildroot-toolchain"
+arm-debug: SDK_PATH        = "/opt/bin"
 arm-debug: SDK_PATH_TARGET = $(SDK_PATH)/usr/arm-buildroot-linux-gnueabi/sysroot
-arm-debug: SDK_PATH_NATIVE = $(SDK_PATH)/usr/bin/
-arm-debug: TOOLCHAIN_PREFIX=arm-buildroot-linux-gnueabi-
-arm-debug: CFLAGS          = -pipe -g -Wall -W -fPIC  -march=armv7-a -marm -mthumb-interwork -mfloat-abi=soft -mfpu=neon -mtune=cortex-a9 --sysroot=$(SDK_PATH_TARGET) $(DEFINES)
+arm-debug: SDK_PATH_NATIVE = $(SDK_PATH)
+#arm-debug: TOOLCHAIN_PREFIX=arm-buildroot-linux-gnueabi-
+arm-debug: TOOLCHAIN_PREFIX=
+arm-debug: CFLAGS          = -pipe -g -Wall -W -fPIC  -march=armv7-a -marm -mthumb-interwork -mfloat-abi=soft -mfpu=neon -mtune=cortex-a9 #--sysroot=$(SDK_PATH_TARGET) $(DEFINES)
 arm-debug: CXXFLAGS        = -pipe -g -std=c++0x -Wall -W -fPIC -fvisibility=hidden -march=armv7-a -marm -mthumb-interwork -mfloat-abi=soft -mfpu=neon -mtune=cortex-a9 --sysroot=$(SDK_PATH_TARGET) $(DEFINES)
 arm-debug: LFLAGS          = -shared -Wl,-soname,libutils.so.
-arm-debug: INCPATH         = -I. -I.. -I$(SDK_PATH_TARGET)/usr/include
+#arm-debug: INCPATH         = -I. -I.. -I$(SDK_PATH_TARGET)/usr/include
+arm-debug: INCPATH         = -I. -I.. -I/opt/include
 arm-debug: LINK            = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)g++
 arm-debug: CC              = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)gcc
 arm-debug: CXX             = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)g++
@@ -215,15 +222,19 @@ arm-debug: AS              = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)as
 arm-debug: AR              = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ar
 arm-debug: RANLIB          = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ranlib
 arm-debug: STRIP           = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)strip
-arm-debug: LIBS            = $(SUBLIBS) -L$(SDK_PATH_TARGET)/lib/ -ljson-c  -lmosquittopp
+#arm-debug: LIBS            = $(SUBLIBS) -L$(SDK_PATH_TARGET)/lib/ -ljson-c  -lmosquittopp
+arm-debug: LIBS            = $(SUBLIBS) -L/lib/ -ljson-c  -lmosquittopp
 arm-debug: DEPLOYDIR       = package.arm/integra/lib/
 arm-debug: $(DESTDIR) $(OBJECTS_DIR) $(DEPLOYDIR)$(TARGET) $(DESTDIR)$(TARGET)
 
-armtest: SDK_PATH        = "/opt/buildroot-toolchain"
+#armtest: SDK_PATH        = "/opt/buildroot-toolchain"
+armtest: SDK_PATH        = "/opt/bin"
 armtest: SDK_PATH_TARGET = $(SDK_PATH)/usr/arm-buildroot-linux-gnueabi/sysroot
-armtest: SDK_PATH_NATIVE = $(SDK_PATH)/usr/bin/
-armtest: TOOLCHAIN_PREFIX=arm-buildroot-linux-gnueabi-
-armtest: INCPATH        += -I$(SDK_PATH_TARGET)/usr/include
+armtest: SDK_PATH_NATIVE = $(SDK_PATH)
+#armtest: TOOLCHAIN_PREFIX=arm-buildroot-linux-gnueabi-
+armtest: TOOLCHAIN_PREFIX=
+#armtest: INCPATH        += -I$(SDK_PATH_TARGET)/usr/include
+armtest: INCPATH        += -I/opt/include
 armtest: LINK            = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)g++
 armtest: CC              = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)gcc
 armtest: CXX             = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)g++
@@ -232,7 +243,8 @@ armtest: AS              = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)as
 armtest: AR              = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ar
 armtest: RANLIB          = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ranlib
 armtest: STRIP           = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)strip
-armtest: LIBS            = $(SUBLIBS) -L$(DESTDIR) -L$(SDK_PATH_TARGET)/lib/ -lutils -ljson-c -lmosquittopp
+#armtest: LIBS            = $(SUBLIBS) -L$(DESTDIR) -L$(SDK_PATH_TARGET)/lib/ -lutils -ljson-c -lmosquittopp
+armtest: LIBS            = $(SUBLIBS) -L$(DESTDIR) -L/lib/ -lutils -ljson-c -lmosquittopp
 armtest: LFLAGS          =
 armtest: DEFINES        += -DUNITTEST
 armtest: CFLAGS          = -pipe -g -Wall -W -fPIC  -march=armv7-a -marm -mthumb-interwork -mfloat-abi=soft -mfpu=neon -mtune=cortex-a9 --sysroot=$(SDK_PATH_TARGET) $(DEFINES)
