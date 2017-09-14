@@ -1,0 +1,97 @@
+version: 2
+executorType: docker
+containerInfo:
+  - image: 1and1internet/ubuntu-16:latest
+stages:
+  build:
+    workDir: /home/circleci/project
+    steps: 
+      - type: shell
+        name: Install Git and OpenSSH
+        shell: /bin/sh
+        pwd: /
+        command: apt-get update && apt-get install git openssh-client openssh-server -y
+      - type: checkout
+      - type: shell
+        name: Install Dependencies
+        command: |
+          apt-get install apt-utils software-properties-common -y && apt-add-repository ppa:mosquitto-dev/mosquitto-ppa -y && apt-get update
+          apt-get install python python-dev python-pip jq build-essential linux-headers-generic tree autoconf pkg-config nano wget curl vim -y
+          apt-get install libgpgme11-dev libssl-dev libtool-bin libarchive-dev libarchive13 libcurl4-gnutls-dev  -y
+          apt-get install libmysqlclient-dev libjson0 libjson0-dev libjson-c2 libjson-c-dev libjson0 uuid-dev -y
+          apt-get install libjson0-dev libssl1.0.0 libpcap-dev libipset3 libipset-dev iptables-dev -y
+          apt-get install mosquitto mosquitto-clients libmosquittopp-dev libmosquitto-dev -y --allow-unauthenticated
+          pip install slacker-cli
+      - type: shell
+        name: Install OPKG Package Manager
+        command: |
+          wget -q http://git.yoctoproject.org/cgit/cgit.cgi/opkg/snapshot/opkg-0.3.2.tar.gz -O ${HOME}/opkg.tar.gz && \
+            tar -xvf ${HOME}/opkg.tar.gz -C ${HOME}/ && \
+            cd ${HOME}/opkg-0.3.2/ && \
+            ./autogen.sh && \
+            ./configure && \
+            make && \
+            make install && \
+            mkdir -p /etc/opkg && \
+            echo -e "src/gz snapshots https://packages.integra-edge.net\ndest root /" | tee /etc/opkg/opkg.conf && \
+            export LD_LIBRARY_PATH=/usr/local/lib/ && \
+            opkg update
+      - type: shell
+        name: Install OPKG Utils
+        command: |
+          wget -q http://git.yoctoproject.org/cgit/cgit.cgi/opkg-utils/snapshot/opkg-utils-0.3.2.tar.gz
+          tar -xvf opkg-utils-0.3.2.tar.gz -C /usr/local/bin --strip-components=1
+      - type: shell
+        name: Install Github Release Tool
+        command: |
+          wget -q https://gist.githubusercontent.com/Illizian/9e4854f93498db1a9058d06e87eeafed/raw/b583311a9df332e1d77c4866ad1cb523959050c2/gh-dl-release
+          mv gh-dl-release /usr/local/bin
+          chmod +x /usr/local/bin/gh-dl-release
+      - type: shell
+        name: Install Buildroot
+        command: |
+          gh-dl-release AST-UK/integra-buildroot latest buildroot.tgz
+          tar -C / -xzf buildroot.tgz
+          rm buildroot.tgz
+      - type: shell
+        name: Test Build
+        command: |
+          LD_LIBRARY_PATH=/usr/local/lib
+          export LD_LIBRARY_PATH
+          ./circle/test
+      - type: shell
+        name: Test Build [ARM]
+        command: |
+          LD_LIBRARY_PATH=/usr/local/lib
+          export LD_LIBRARY_PATH
+          ./circle/test-arm
+      - type: shell
+        name: Show folder
+        command: ls -lR
+      - type: artifacts-store
+        path: test-reports/coverage
+        destination: reports
+      - type: test-results-store
+        path: "test-reports/"
+      - type: shell
+        name: Start ssh-agent
+        command: |
+          ssh-agent -s > ~/.ssh_agent_conf
+          source ~/.ssh_agent_conf
+
+          for _k in $(ls ${HOME}/.ssh/id_*); do
+            ssh-add ${_k} || true
+          done
+      - type: deploy
+        name: "Deploying"
+        command: |
+          case ${CIRCLE_BRANCH} in
+                develop)
+                        echo "Deploying to develop"
+                        ./deploy.sh -dev
+                        ;;
+                master)
+                        echo "Deploying to master"
+                        ./deploy.sh
+                        ;;
+          esac
