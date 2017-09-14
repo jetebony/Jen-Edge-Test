@@ -13,7 +13,7 @@ pipeline {
         }
 	stage('Test') {
             steps {
-		sh 'make test'
+		sh 'make armtest'
 	    }
 	}
     }
