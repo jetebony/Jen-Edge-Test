@@ -1,16 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-		echo "Building arm version...."
                 sh 'make clean'
 		sh 'make arm'
             }
         }
-	stage('test)' {
+	stage('Test)' {
             steps {
-		echo "Testing...."
 		sh 'make test'
 	    }
 	}
