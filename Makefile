@@ -198,7 +198,7 @@ arm: AR              = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ar
 arm: RANLIB          = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ranlib
 arm: STRIP           = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)strip
 #arm: LIBS            = $(SUBLIBS) -L$(SDK_PATH_TARGET)/lib/ -ljson-c  -lmosquittopp
-arm: LIBS            = $(SUBLIBS) -L/lib/ -ljson-c  -lmosquittopp
+arm: LIBS            = $(SUBLIBS) -L/lib -ljson-c  -lmosquittopp
 arm: DEPLOYDIR       = package.arm/integra/lib/
 arm: $(DESTDIR) $(OBJECTS_DIR) $(DEPLOYDIR)$(TARGET) $(DESTDIR)$(TARGET)
 	$(STRIP) -s $(DEPLOYDIR)$(TARGET)
@@ -223,7 +223,7 @@ arm-debug: AR              = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ar
 arm-debug: RANLIB          = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ranlib
 arm-debug: STRIP           = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)strip
 #arm-debug: LIBS            = $(SUBLIBS) -L$(SDK_PATH_TARGET)/lib/ -ljson-c  -lmosquittopp
-arm-debug: LIBS            = $(SUBLIBS) -L/lib/ -ljson-c  -lmosquittopp
+arm-debug: LIBS            = $(SUBLIBS) -L/lib -ljson-c  -lmosquittopp
 arm-debug: DEPLOYDIR       = package.arm/integra/lib/
 arm-debug: $(DESTDIR) $(OBJECTS_DIR) $(DEPLOYDIR)$(TARGET) $(DESTDIR)$(TARGET)
 
@@ -244,7 +244,7 @@ armtest: AR              = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ar
 armtest: RANLIB          = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ranlib
 armtest: STRIP           = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)strip
 #armtest: LIBS            = $(SUBLIBS) -L$(DESTDIR) -L$(SDK_PATH_TARGET)/lib/ -lutils -ljson-c -lmosquittopp
-armtest: LIBS            = $(SUBLIBS) -L$(DESTDIR) -L/lib/ -lutils -ljson-c -lmosquittopp
+armtest: LIBS            = $(SUBLIBS) -L$(DESTDIR) -L/lib -lutils -ljson-c -lmosquittopp
 armtest: LFLAGS          =
 armtest: DEFINES        += -DUNITTEST
 armtest: CFLAGS          = -pipe -g -Wall -W -fPIC  -march=armv7-a -marm -mthumb-interwork -mfloat-abi=soft -mfpu=neon -mtune=cortex-a9 --sysroot=$(SDK_PATH_TARGET) $(DEFINES)
