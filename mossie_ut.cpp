@@ -5,7 +5,7 @@
 #include <functional>
 
 #ifdef UNITTEST
-#   include "../Catch/include/catch.hpp"
+#   include "/opt/include/Catch/include/catch.hpp"
 
 using namespace integra_utils;
 using namespace std;
