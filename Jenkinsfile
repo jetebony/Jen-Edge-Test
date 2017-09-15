@@ -12,8 +12,13 @@ pipeline {
             }
         }
 	stage('Test') {
-	    withEnv(["LD_LIBRARY_PATH=/lib:/usr/lib"]) {
-		sh 'make armtest' }
+	    environment { 
+                LD_LIBRARY_PATH = "/lib:/usr/lib"
+            }
+            steps {
+		env
+		sh 'make testarm'
+            }
 	}
     }
 }
