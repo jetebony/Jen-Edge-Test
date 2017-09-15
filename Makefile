@@ -244,7 +244,7 @@ armtest: AR              = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ar
 armtest: RANLIB          = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)ranlib
 armtest: STRIP           = $(SDK_PATH_NATIVE)$(TOOLCHAIN_PREFIX)strip
 #armtest: LIBS            = $(SUBLIBS) -L$(DESTDIR) -L$(SDK_PATH_TARGET)/lib/ -lutils -ljson-c -lmosquittopp
-armtest: LIBS            = $(SUBLIBS) -L$(DESTDIR) -L/lib -L/usr/lib -lutils -ljson-c -lmosquittopp
+armtest: LIBS            = $(SUBLIBS) -L$(DESTDIR) -L/lib -L/usr/lib -lutils -ljson-c -lmosquittopp -lrt
 armtest: LFLAGS          =
 armtest: DEFINES        += -DUNITTEST
 armtest: CFLAGS          = -pipe -g -Wall -W -fPIC  -march=armv7-a -marm -mthumb-interwork -mfloat-abi=soft -mfpu=neon -mtune=cortex-a9 --sysroot=$(SDK_PATH_TARGET) $(DEFINES)
