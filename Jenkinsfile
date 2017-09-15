@@ -12,13 +12,11 @@ pipeline {
             }
         }
 	stage('Test') {
-	    environment { 
-                LD_LIBRARY_PATH = "/lib:/usr/lib"
-            }
             steps {
 		sh '''
+		export LD_LIBRARY_PATH=/lib:/usr/lib
 		env
-		make testarm
+		make armtest
 		'''
             }
 	}
