@@ -16,8 +16,10 @@ pipeline {
                 LD_LIBRARY_PATH = "/lib:/usr/lib"
             }
             steps {
+		sh '''
 		env
-		sh 'make testarm'
+		make testarm
+		'''
             }
 	}
     }
