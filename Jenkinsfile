@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-		sh 'g++ test.cpp -o test'
+		sh '/integra/opt/bin/g++ test.cpp -o test'
             }
         }
 	stage('Test') {
