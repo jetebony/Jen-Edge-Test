@@ -11,7 +11,7 @@ pipeline {
 	stage('Test') {
             steps {
 		sh '''
-		echo "Running a test on `hostanme`"
+		echo "Running a test on `hostname`"
 		./test
 		'''
             }
