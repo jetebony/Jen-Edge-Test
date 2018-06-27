@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-echo "==> Running: make clean"
-make clean
-echo "==> Running: make"
-make
-ret=$?
-tree -s package
-exit $ret
