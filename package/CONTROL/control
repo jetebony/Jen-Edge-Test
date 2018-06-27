@@ -1,8 +1,0 @@
-Package: #NAME#
-Version: #VERSION#
-Architecture: all
-Section: integra
-Source: https://github.com/AST-UK/integra-utilslib
-Maintainer: AST-UK
-Priority: optional
-Description: A C++ library of utility functions and classes.

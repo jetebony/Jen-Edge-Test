@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-echo "==> Running: make clean"
-make clean
-echo "==> Running: make arm"
-make arm
-ret=$?
-tree -s package.arm
-exit $ret
